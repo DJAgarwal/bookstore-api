@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Role::create(['name' => 'admin']);
-        Role::create(['name' => 'user']);
+        Role::create(['name' => 'customer']);
 
         $adminRole = Role::where('name', 'admin')->first();
-        $userRole = Role::where('name', 'user')->first();
+        $customerRole = Role::where('name', 'customer')->first();
 
         User::create([
             'name' => 'Admin',
@@ -32,14 +32,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Customer 1',
             'email' => 'customer1@gmail.com',
             'password' => Hash::make('customer@123'),
-            'role_id' => $userRole->id,
+            'role_id' => $customerRole->id,
         ]);
         
         User::create([
             'name' => 'Customer 2',
             'email' => 'customer2@gmail.com',
             'password' => Hash::make('customer@123'),
-            'role_id' => $userRole->id,
+            'role_id' => $customerRole->id,
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{AuthController,BookController};
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/login', 'App\Http\Controllers\AuthController@login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::prefix('books')->middleware('auth:sanctum')->group(function () {
+    Route::get('/index', [BookController::class, 'index']);
+    Route::post('/create', [BookController::class, 'create']);
+});

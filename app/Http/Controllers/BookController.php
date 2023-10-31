@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\Http\Requests\Book\{IndexRequest,DetailsRequest};
+use App\Http\Requests\Book\{IndexRequest,DetailsRequest,DestroyRequest};
 use App\Models\Book;
 class BookController extends Controller
 {
@@ -16,9 +16,19 @@ class BookController extends Controller
         return response()->json(['data' => $data]);
     }
 
-    public function details(DetailsRequest $request)
+    public function details(DetailsRequest $request, $id)
     {
-        $data = Book::find($request->id);
+        $data = Book::find($id);
         return response()->json(['data' => $data]);
+    }
+
+    public function destroy(DestroyRequest $request, $id)
+    {
+        $book = Book::find($id);
+        if(!$book){
+            return response()->json(['message' => 'Book not found'], 404);
+        }
+        $book->delete();
+        return response()->json(['message' => 'Book deleted successfully']);
     }
 }

@@ -22,4 +22,5 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::prefix('books')->middleware('auth:sanctum')->group(function () {
     Route::get('/index', [BookController::class, 'index']);
     Route::post('/create', [BookController::class, 'create']);
+    Route::get('/details', [BookController::class, 'details']);
 });

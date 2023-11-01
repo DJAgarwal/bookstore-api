@@ -15,5 +15,6 @@ password:customer@123
 email:customer2@gmail.com
 password:customer@123
 6. php artisan serve
+7. Project will run on 127.0.0.1:8000
 
 Let me know if you face any issues: dheerajagarwal1995@gmail.com

@@ -13,3 +13,8 @@ password:customer@123
 
 email:customer2@gmail.com
 password:customer@123
+
+composer install
+composer require laravel/horizon
+composer install --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-posix
+composer require laravel/horizon --ignore-platform-req=ext-pcntl --ignore-platform-req=ext-posix

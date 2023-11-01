@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Auth, Mail, Bus;
 use App\Http\Requests\Book\{IndexRequest,DetailsRequest,DestroyRequest,StoreRequest};
 use App\Models\Book;
+use App\Jobs\SendBookDataEmail;
+
 class BookController extends Controller
 {
     public function index(IndexRequest $request)
@@ -74,5 +76,12 @@ class BookController extends Controller
         }
         $book->delete();
         return response()->json(['message' => 'Book deleted successfully']);
+    }
+
+    public function sendBookEmail(Request $request)
+    {
+        $data = Book::get();
+        Bus::dispatch(new SendBookDataEmail($data));
+        return response()->json(['message' => 'Email sent']);
     }
 }

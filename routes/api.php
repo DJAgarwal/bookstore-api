@@ -25,4 +25,5 @@ Route::prefix('books')->middleware('auth:sanctum')->group(function () {
     Route::get('/{id}', [BookController::class, 'details']);
     Route::delete('/{id}', [BookController::class, 'destroy']);
 });
-Route::middleware('auth:sanctum')->get('/search', [BookController::class, 'search']);
+Route::get('/send-book-email', [BookController::class, 'sendBookEmail'])->middleware('auth:sanctum');
+Route::get('/search', [BookController::class, 'search'])->middleware('auth:sanctum');

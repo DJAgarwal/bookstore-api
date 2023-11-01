@@ -16,6 +16,28 @@ class BookController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    public function search(Request $request)
+    {
+        $title = $request->input('title');
+        $author = $request->input('author');
+        $genre = $request->input('genre');
+        $isbn = $request->input('isbn');
+        $data = Book::when($title, function ($query) use ($title) {
+            return $query->where('title', 'LIKE', '%' . $title . '%');
+        })
+        ->when($author, function ($query) use ($author) {
+            return $query->where('author', 'LIKE', '%' . $author . '%');
+        })
+        ->when($genre, function ($query) use ($genre) {
+            return $query->where('genre', 'LIKE', '%' . $genre . '%');
+        })
+        ->when($isbn, function ($query) use ($isbn) {
+            return $query->where('isbn', 'LIKE', '%' . $isbn . '%');
+        })
+        ->paginate(10);
+        return response()->json(['data' => $data]);
+    }
+
     public function store(StoreRequest $request)
     {
         $book = Book::find($request->id);
